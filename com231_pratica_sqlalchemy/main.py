@@ -6,7 +6,7 @@ from model import *
 
 def criamodelo():
 
-    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/postgres", echo=False)
+    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/Northwind", echo=False)
 
     # guarda modelo vindo do banco de dados
     base = automap_base()
@@ -58,7 +58,7 @@ def insereProduto(model):
     )
 
     # cria a conexão
-    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/postgres", echo=True)
+    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/Northwind", echo=True)
 
     # cria a sessão
     Session = sessionmaker(bind=engine)
@@ -76,7 +76,7 @@ def consultaProduto(model, id):
     produto = model.classes.products
 
     # cria a conexão
-    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/postgres", echo=False)
+    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/Northwind", echo=False)
 
     # cria a sessão
     Session = sessionmaker(bind=engine)
