@@ -23,14 +23,12 @@ def criamodelo():
     relations = inspect(base.classes.products).relationships.items()
     print(relations)
 
-    print("CADASTRA PRODUTO")
-    insereProduto(base)
+    # print("CADASTRA PRODUTO")
+    # insereProduto(base)
 
-    # todo PAREI NA AULA 1, MINUTO 24
-
-    # print("CONSULTA PRODUTO")
-    # id = int(input("Digite o código do produto que será consultado : "))
-    #consultaProduto(base, id)
+    print("CONSULTA PRODUTO")
+    id = int(input("Digite o código do produto que será consultado : "))
+    consultaProduto(base, id)
 
     # print("ATUALIZA PRODUTO")
     # id = int(input("Digite o código do produto que será atualizado : "))
@@ -78,7 +76,7 @@ def consultaProduto(model, id):
     produto = model.classes.products
 
     # cria a conexão
-    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/Northwind", echo=False)
+    engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/postgres", echo=False)
 
     # cria a sessão
     Session = sessionmaker(bind=engine)
@@ -89,6 +87,7 @@ def consultaProduto(model, id):
 
     # imprime nome do produto
     print(prod.categoryid)
+    print(prod.productname)
     imprimeCategoria(prod.categories)
     l = prod.categories.products_collection
     imprimeListaProduto(l)
