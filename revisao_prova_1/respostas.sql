@@ -53,9 +53,18 @@ order by orderid asc
 
 -- Q3
 
+I. Se uma transação é concluída com sucesso (operação commit bem sucedida), então 
+seus efeitos são persistentes.
 
+-- significa durabilidade, que é a garantia de que as alterações feitas por uma transação serão permanentes, 
+-- mesmo que ocorra uma falha no sistema.
 
+II. Ou todas as ações da transação acontecem, ou nenhuma delas acontece.
 
+-- significa atomicidade, que é a garantia de que todas as operações em uma transação serão executadas ou nenhuma delas será executada, 
+-- evitando que o banco de dados fique em um estado inconsistente.
+
+-- Q4
 
 
 
