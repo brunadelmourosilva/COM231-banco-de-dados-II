@@ -53,18 +53,69 @@ order by orderid asc
 
 -- Q3
 
-I. Se uma transação é concluída com sucesso (operação commit bem sucedida), então 
-seus efeitos são persistentes.
+-- I. Se uma transação é concluída com sucesso (operação commit bem sucedida), então 
+-- seus efeitos são persistentes.
 
 -- significa durabilidade, que é a garantia de que as alterações feitas por uma transação serão permanentes, 
 -- mesmo que ocorra uma falha no sistema.
 
-II. Ou todas as ações da transação acontecem, ou nenhuma delas acontece.
+-- II. Ou todas as ações da transação acontecem, ou nenhuma delas acontece.
 
 -- significa atomicidade, que é a garantia de que todas as operações em uma transação serão executadas ou nenhuma delas será executada, 
 -- evitando que o banco de dados fique em um estado inconsistente.
 
--- Q4
+-- Q4 - não entendi
+
+
+-- Q5
+
+-- DISCO COM BLOCO DE 512 BYTES
+-- 1 PONTEIRO PARA BLOCO DE 6 BYTES
+-- 1 PONTEIRO PARA REGISTRO DE 7 BYTES
+-- ARQUIVO COM 75.000 REGISTROS
+-- CADA CAMPO TEM UM TAMANHO, SENDO:
+	-- FilmeID (4 bytes), DiretorID (4 bytes), CategoriaID (4 bytes), Título (35 bytes), AnoLancamento(4 bytes), 
+	-- Duracao (4 bytes), Resenha (50 bytes)
+	-- TOTAL: 106 BYTES
+	
+-- A) SENDO UM ARQUIVO SEQUENCIAL(ORDENADO POR PK)
+	
+	-- i - ARQUIVO SEQUENCIAL - INDICE PRIMARIO - ESPARSO(filmeID)	
+	-- INDICE PRIMARIO = TAMANHO DO BLOCO / TOTAL DA SOMA DE BYTES DOS REGISTROS
+	-- INDICE PRIMARIO = 512 / 106 = 4,8 REGISTROS / BLOCO => 4 REGISTROS POR BLOCO
+	
+	-- 1 BLOCO --- 4 REGISTROS
+	-- X BLOCO --- 75000 REGISTROS
+	-- X = 18.750 BLOCOS(QUANTIDADE DE BLOCOS PRECISO PARA USAR/ARMAZENAR)
+	
+	---
+	
+	-- FATOR DE BLOCO DO INDICE -> CHAVE + PONTEIRO
+	-- FATOR DE BLOCO DO INDICE -> TAMANHO DO BLOCO / FILMEID(4B) + PONTEIRO(6B)
+	-- FATOR DE BLOCO DO INDICE -> 512 / 10 = 51 REGISTROS POR BLOCO
+	
+	---
+	
+	-- 1 BLOCO --- 51 REGISTROS
+	-- X BLOCO --- 18.750 BLOCOS
+	-- X = ~368 BLOCOS DE INDICE PARA ARMAZENAR 18750 REGISTROS DE INDICE
+	
+	---
+	
+	-- ii - ARQUIVO SEQUENCIAL - INDICE SECUNDÁRIO - DENSO(AnoLancamento)
+	
+	-- 512 / 4(BYTES) + 7(PONTEIRO DE REGISTRO) = 46 REGISTROS DE INDICE QUE CONSIGO ARMAZENAR EM UM BLOCO
+	
+	-- 1 BLOCO --- 46 REGISTROS
+	-- X BLOCO --- 75.000 REGISTROS(POIS MEU INDICE É DENSO/SECUNDARIO)
+	-- X = ~1631 BLOCOS
+	
+	-----
+
+	-- ESPARSO -> FAZER 2 REGRAS DE 3
+	-- DENSO -> FAZER 1 REGRA DE 3
+	
+
 
 
 
